@@ -7,10 +7,10 @@ import { useAppSelector } from '../app/store';
 
 // ==============================|| ROUTING RENDER ||============================== //
 export const useRouting = () => {
-    const { token } = useAppSelector((state) => state.auth);
+    const { accessToken } = useAppSelector((state) => state.auth);
 
-    const router = token ? createBrowserRouter([LoginRoutes], { basename: import.meta.env.VITE_APP_BASE_NAME })
-        : createBrowserRouter([MainRoutes], { basename: import.meta.env.VITE_APP_BASE_NAME });
+    const router = accessToken ? createBrowserRouter([MainRoutes], { basename: import.meta.env.VITE_APP_BASE_NAME })
+        : createBrowserRouter([LoginRoutes], { basename: import.meta.env.VITE_APP_BASE_NAME });
 
     return router;
 };

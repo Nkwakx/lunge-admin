@@ -26,7 +26,7 @@ test('renders register link', () => {
             </BrowserRouter>
         </ThemeProvider>
     );
-    const linkElement = screen.getByText(/Don\'t have an account\?/i);
+    const linkElement = screen.getByText(/Don't have an account\?/i);
     expect(linkElement).toBeInTheDocument();
     expect(linkElement.closest('a')).toHaveAttribute('href', '/register');
 });

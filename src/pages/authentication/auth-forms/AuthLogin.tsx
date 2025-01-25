@@ -12,42 +12,31 @@ import InputLabel from '@mui/material/InputLabel';
 import Link from '@mui/material/Link';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import { Formik } from 'formik';
-import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import * as Yup from 'yup';
 import AnimateButton from '../../../components/@extended/AnimateButton';
 import FirebaseSocial from './FirebaseSocial';
+import { LoginPageController } from '../../Controllers/Login.PageController';
 
 export default function AuthLogin() {
-  const [checked, setChecked] = React.useState(false);
-  const [showPassword, setShowPassword] = React.useState(false);
-
-  const handleClickShowPassword = () => {
-    setShowPassword(!showPassword);
-  };
-
-  const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-  };
-
+  const { 
+    checked,
+    onChange,
+    showPassword,
+    initialValues,
+    signinHandler,
+    handleClickShowPassword,
+    handleMouseDownPassword, } = LoginPageController();
 
   return (
     <>
       <Formik
-        initialValues={{
-          email: '',
-          password: '',
-          submit: null
-        }}
+        initialValues={initialValues}
         validationSchema={Yup.object().shape({
           email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
           password: Yup.string().max(255).required('Password is required')
         })}
-        onSubmit={(values, { setSubmitting }) => {
-          // Your form submission logic here
-          console.log(values);
-          setSubmitting(false);
-        }}
+        onSubmit={signinHandler}
       >
         {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
           <form noValidate onSubmit={handleSubmit}>
@@ -110,7 +99,7 @@ export default function AuthLogin() {
                     control={
                       <Checkbox
                         checked={checked}
-                        onChange={(event) => setChecked(event.target.checked)}
+                        onChange={onChange}
                         name="checked"
                         color="primary"
                         size="small"

@@ -1,33 +1,52 @@
 
-export interface User {
-    id: string;
-    email: string;
-    username: string;
-    role: RoleType;
-}
-export interface Role {
-    id: string;
-    name: RoleType;
-}
-
 export interface authState{
-    user: User | null;
-    token: string | null;
-    refreshToken: string | null;
     loading: boolean;
     isSuccess: boolean;
+    expiresIn: boolean;
     statusCode: [] | null;
     message: string | null;
+    tokenType: string | null;
+    accessToken: string | null;
+    user: SignupResponse | null;
+    refreshToken: string | null;
 }
-export interface UserSigninRequest{
+
+export interface SigninRequest{
     email: string;
+    submit: boolean;
     password: string;
 }
 
-export interface UserSignupResponse{
+export interface SigninResponse{
+    tokenType: string;
+    expiresIn: boolean;
+    accessToken: string;
+    refreshToken: string;
+}
+
+export interface SignupRequest {
     id: string;
     email: string;
-    role: RoleType[];
+    role: RoleType;
+    username: string;
+}
+
+export interface SignupResponse{
+    name: string;
+    email: string;
+    errors: string;
+    surname: string;
+    username: string;
+}
+
+export interface RefreshToken{
+    accessToken: string | null;
+    refreshToken: string | null;
+}
+
+export interface Role {
+    id: string;
+    name: RoleType;
 }
 
 export type RoleType = "Admin" | "Super Admin" | "Merchant Director" | "Merchant Employee"
